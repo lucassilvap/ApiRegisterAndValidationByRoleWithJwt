@@ -12,6 +12,7 @@ import com.example.jwtAndRoles.dao.UserDao;
 import com.example.jwtAndRoles.entity.Role;
 import com.example.jwtAndRoles.entity.User;
 import com.example.jwtAndRoles.exceptions.UserNameMustBeUnique;
+import com.example.jwtAndRoles.exceptions.UserNotFoundException;
 
 @Service
 public class UserService {
@@ -72,5 +73,9 @@ public class UserService {
   
   public String getEncodedPassword(String password) {
 	return passwordEncoder.encode(password);  
+  }
+  
+  public User findByName(String name) {
+	  return dao.findByUserName(name).orElseThrow(UserNotFoundException::new);
   }
 }
